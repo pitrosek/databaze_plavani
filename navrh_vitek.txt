@@ -1,0 +1,44 @@
+Závody v plavání (mčr / jiné)
+
+1.PLAVEC
+-plavec_id(primarni klic)
+-jméno
+-prijmeni
+-ročník
+-vaha
+-pohlavi
+-vyska
+-foto(odkaz)
+-klub_id(cizi klic)
+
+2.KLUB
+-klub_id(primarni klic)
+-název
+-mesto
+-stat
+-datum_zalozeni
+
+3.DISCIPLINA
+-disciplina_id (primarni klic)
+-nazev(napr. 100m motyl)
+-delka
+-styl(enum - plavec. styly)
+-pohlavi (M/Ž)
+
+
+4.ZAVOD(MČR / POHÁR)
+-zavod_id(primarni klic)	
+-nazev(mčr,pohár,plzenske stovky ..)
+-datum (kdy se kona)
+-cas_zahajeni
+-misto(kde)
+-bazen(na jakem bazene)
+
+5.VYSLEDEK
+-vysledek_id(primarni klic)
+-zavod_id(cizi klic?)
+-plavec_id(cizi klic?)
+-disciplina_id(cizi klic?)
+-umisteni
+-body(FINA body)
+ 
