@@ -1,15 +1,120 @@
 # 🏊‍♂️ Databáze plaveckých soutěží
-Tato databáze je vytvořena pro ukládání a správu informací týkajících se plaveckých soutěží. Je strukturovaná tak, aby dokázala postihnout všechny hlavní prvky, které při organizaci závodů vznikají: samotné závodníky, jejich zázemí, disciplíny, závody i výsledky.
+Databáze je navržena pro komplexní evidenci všeho, co souvisí s plaveckými závody — od samotných plavců, přes jejich kluby a disciplíny, až po jednotlivé závody a konkrétní výsledky. Každá tabulka představuje jeden ucelený prvek, který je pomocí cizích klíčů propojen s ostatními částmi systému.
 
-Základem systému je tabulka plavec, kde jsou evidovány osobní údaje jednotlivých závodníků. Každý plavec má přiřazený záznam ve dvou dalších tabulkách — ve stat a klub. Tabulka států umožňuje přiřadit závodníkovi jeho národnost, zatímco tabulka klubů zachycuje plavecký klub, za který závodník startuje. Tyto dvě vazby tak doplňují základní identitu plavce a poskytují přehled o jeho sportovním i geografickém zázemí.
+Níže jsou popsány jednotlivé tabulky spolu s vysvětlením významu jejich sloupců a vazeb.
 
-Samostatnou část tvoří tabulka disciplina, která obsahuje jednotlivé plavecké disciplíny. Ty se liší stylem i délkou tratě a slouží k přesnému určení toho, v čem závodník soutěží. Databáze díky tomu dokáže rozlišovat mezi výkony plavců v různých kategoriích.
+1️⃣ PLAVEC
 
-Tabulka zavod představuje konkrétní soutěžní události. Každý záznam může reprezentovat jeden závod, soutěžní den nebo událost v rámci většího plaveckého meetingu. Tato tabulka slouží jako spojovací bod pro jednotlivé výsledky.
+Tabulka uchovává podrobné informace o jednotlivých závodnících.
 
-Výkony plavců jsou zaznamenávány v tabulce vysledek. Každý výsledek je pevně spojen se třemi klíčovými údaji: s plavcem, se závodem a s disciplínou. Díky tomu je možné přesně určit, kdo závodil, kde závodil a v jaké disciplíně. Výsledková tabulka tak obsahuje kompletní informace o časech, umístěních nebo dalších hodnotách, které plavec během soutěže dosáhl.
+Sloupce:
 
-Celkově tato databáze poskytuje ucelený systém, který dokáže uchovávat záznamy o plavcích, jejich sportovním působení a konkrétních výkonech v různých soutěžích. Díky navzájem propojeným tabulkám je možné jednoduše dohledat průběh závodů, seznam účastníků i jejich výsledky.
+plavec_id – primární klíč, jednoznačný identifikátor plavce
+
+jméno – křestní jméno plavce
+
+prijmeni – příjmení plavce
+
+ročník – rok narození
+
+vaha – tělesná váha
+
+pohlavi – označení pohlaví (M/Ž)
+
+vyska – výška plavce
+
+foto – odkaz na obrázek nebo profilovou fotografii
+
+klub_id – cizí klíč, propojení s tabulkou KLUB
+
+Význam:
+Tabulka spojuje osobní údaje plavců s jejich klubem, což umožňuje sledovat, za který klub závodník startuje.
+
+2️⃣ KLUB
+
+Tabulka obsahuje informace o plaveckých klubech.
+
+Sloupce:
+
+klub_id – primární klíč
+
+název – název plaveckého klubu
+
+mesto – město, kde klub působí
+
+stat – stát, ve kterém se klub nachází
+
+datum_zalozeni – datum vzniku klubu
+
+Význam:
+Každý klub může mít více plavců. Vazba 1 klub → mnoho plavců.
+
+3️⃣ DISCIPLINA
+
+Tabulka definuje jednotlivé plavecké disciplíny.
+
+Sloupce:
+
+disciplina_id – primární klíč
+
+nazev – textový název (např. „100 m motýlek“)
+
+delka – délka tratě v metrech (25, 50, 100, 200 …)
+
+styl – styl plavání (např. motýlek, znak, prsa, volný způsob), typicky formou ENUM
+
+pohlavi – pro jaké pohlaví je disciplína určena (M / Ž)
+
+Význam:
+Disciplína je jedním z klíčových parametrů výkonu — každý výsledek se vztahuje právě k jedné disciplíně.
+
+4️⃣ ZAVOD
+
+Tabulka reprezentuje konkrétní závody nebo soutěžní události (například MČR, poháry, regionální závody apod.).
+
+Sloupce:
+
+zavod_id – primární klíč
+
+nazev – název závodu (např. „MČR“, „Pohár ČR“, „Plzeňské stovky“)
+
+datum – datum konání
+
+cas_zahajeni – čas zahájení akce
+
+misto – lokalita, kde se závod koná
+
+bazen – informace o bazénu (např. 25 m / 50 m, sportovní hala apod.)
+
+Význam:
+Závody slouží jako události, ve kterých závodníci soutěží v různých disciplínách. Na závod se váže každý jednotlivý výsledek.
+
+5️⃣ VYSLEDEK
+
+Tabulka spojuje dohromady tři základní prvky: plavce, disciplínu a závod. Uchovává konkrétní výkony.
+
+Sloupce:
+
+vysledek_id – primární klíč
+
+zavod_id – cizí klíč na tabulku ZAVOD
+
+plavec_id – cizí klíč na tabulku PLAVEC
+
+disciplina_id – cizí klíč na tabulku DISCIPLINA
+
+umisteni – výsledné umístění v závodě (1., 2., 3. …)
+
+body – přidělené FINA body
+
+Význam:
+Jde o centrální tabulku zachycující konkrétní výkon plavce v určité disciplíně v rámci jednoho závodu.
+Každý řádek přesně říká:
+
+Který plavec závodil v jaké disciplíně, na jakém závodě a jak dopadl.
 
 
+
+
+Diagram databáze :
 https://dbdiagram.io/d/Plavani-69031f446735e111707261f4
