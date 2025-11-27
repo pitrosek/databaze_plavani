@@ -117,4 +117,6 @@ Který plavec závodil v jaké disciplíně, na jakém závodě a jak dopadl.
 
 
 Diagram databáze :
+<img width="1517" height="1073" alt="Plavani" src="https://github.com/user-attachments/assets/532b6bd1-ceb5-4c54-be0a-3641e513eacc" />
+
 https://dbdiagram.io/d/Plavani-69031f446735e111707261f4
